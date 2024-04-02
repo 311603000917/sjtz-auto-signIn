@@ -1,4 +1,5 @@
 import requests
+from sendwx import send
 import base64
 import argparse
 import json
@@ -12,10 +13,10 @@ class Location:
 
 # 定义打卡地点数组
 locations = [
-    Location("河南省驻马店市驿城区驿城区刘阁街道高楼", 32.999749, 113.967228,"5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy66am.5Z!O5Yy65YiY6ZiB6KGX6YGT6auY5qW8"),
-    Location("河南省驻马店市驿城区淮河大道驿城区置地·国际广场(淮河大道北)",33.001344,113.98826,'5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy65reu5rKz5aSn6YGT6am.5Z!O5Yy6572u5Zywwrflm73pmYXlub.lnLoo5reu5rKz5aSn6YGT5YyXKQ::'),
-    Location("河南省驻马店市驿城区文明大道驿城区驻马店财政局(金雀路北50米)", 32.998817,114.016507,'5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy65paH5piO5aSn6YGT6am.5Z!O5Yy66am76ams5bqX6LSi5pS.5bGAKOmHkembgOi3r!WMlzUw57GzKQ::'),
-    Location("(驻马店市政务服务和大数据管理局-南门(河南省驻马店市驿城区解放大道546号附近))", 32.975491,114.020093,'KOmpu!mprOW6l!W4guaUv!WKoeacjeWKoeWSjOWkp!aVsOaNrueuoeeQhuWxgC3ljZfpl6go5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy66Kej5pS!5aSn6YGTNTQ25Y!36ZmE6L!RKSk:')
+    Location("IDC", 32.999749, 113.967228,"5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy66am.5Z!O5Yy65YiY6ZiB6KGX6YGT6auY5qW8"),
+    Location("置地办公区",33.001344,113.98826,'5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy65reu5rKz5aSn6YGT6am.5Z!O5Yy6572u5Zywwrflm73pmYXlub.lnLoo5reu5rKz5aSn6YGT5YyXKQ::'),
+    Location("市豫资办公区", 32.998817,114.016507,'5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy65paH5piO5aSn6YGT6am.5Z!O5Yy66am76ams5bqX6LSi5pS.5bGAKOmHkembgOi3r!WMlzUw57GzKQ::'),
+    Location("大数据中心", 32.975491,114.020093,'KOmpu!mprOW6l!W4guaUv!WKoeacjeWKoeWSjOWkp!aVsOaNrueuoeeQhuWxgC3ljZfpl6go5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy66Kej5pS!5aSn6YGTNTQ25Y!36ZmE6L!RKSk:')
 ]
 
 def main():
@@ -25,7 +26,7 @@ def main():
     # 添加命令行参数
     parser.add_argument('--username', default='', help='指定用户名')
     parser.add_argument('--password', default='sj@1396', help='指定密码，默认为 sj@1396')
-    parser.add_argument('--address', default='0', help='指定打卡地址，默认值为IDC')
+    parser.add_argument('--address', default='1', help='指定打卡地址，默认值为IDC')
 
     # 解析命令行参数
     args = parser.parse_args()
@@ -93,15 +94,9 @@ def add_location(token, location,PHPSESSID):
 def select_location(userSelect,locations):
     for i, loc in enumerate(locations):
         print(f"{i+1}. {loc.name}\r\n")
-    print(f"当前选择打卡地址为 -->  {locations[userSelect].name}\r\n")
+    print(f"当前选择打卡地址为 -->  {locations[userSelect-1].name}\r\n")
 
-    return locations[userSelect]
-    # choice = int(input("请输入选择的序号："))
-    # if 1 <= choice <= len(locations):
-    #     return locations[choice - 1]
-    # else:
-    #     print("输入错误，请重新选择")
-    #     return select_location(locations)
+    return locations[userSelect-1]
 
 
 if __name__ == "__main__":
@@ -125,9 +120,9 @@ if __name__ == "__main__":
         # 打卡请求
         add_location_response = add_location(token, selected_location,PHPSESSID)
         if(add_location_response['success']):
-            print(f"\r\n{login_response[1]['data']['name']} 于 {add_location_response['data']['now']}  执行成功！😂\r\n")
+            send(f"{login_response[1]['data']['name']} 于 {add_location_response['data']['now']} 在 {selected_location.name}  执行成功！😂")
         else:
-            print(f"\r\n{login_response[1]['data']['name']}  执行失败！😢\r\n")
+            send(f"打卡失败，原因：{add_location_response['msg']}")
     else:
-        print(f"\r\n❌❌{login_response[1]}❌❌\r\n")
+        send(f"打卡失败，原因：{login_response[1]['msg']}")
 
