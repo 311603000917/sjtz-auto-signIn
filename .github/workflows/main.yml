@@ -23,4 +23,4 @@ jobs:
           python -m pip install --upgrade pip
           pip3 install -r requirements.txt
       - name: checkIn
-        run: python3 ./autoSignIn.py --username chaizhiyang --address 4
+        run: python3 ./main.py
