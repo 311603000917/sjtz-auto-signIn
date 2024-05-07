@@ -52,6 +52,19 @@ def userLogin(url,PHPSESSID,username, password):
     except requests.exceptions.RequestException as e:
         print("登录失败：", e)
 
+# 获取最新的Cookie
+def getCookie(cookie,token):
+    url = f"http://218.29.229.34:9001/?d=we&m=ying&a=daka&yingnum=kqdaka&adminid=141&token={token}&openfrom=nppandroid&hideheader=true&opentype=nei&apiwinname=newpage1715053096015_5758"
+    print('getCookie',url)
+    headers = {
+        'Accept': '*/*',
+        'Host': '218.29.229.34:9001',
+        'Connection': 'keep-alive',
+        'Cookie':cookie
+    }
+    response = requests.request("GET", url, headers=headers)
+    return response.headers
+
 # 打卡
 def add_location(url,Cookie,token, location):
     url = f"{url}?m=weixin&a=addlocation&addminid=141&device=1693480732947&cfrom=mweb&token={token}"

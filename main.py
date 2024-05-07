@@ -1,4 +1,4 @@
-from signIn import readUserConfig,writeUserConfig,getAppPHPSESSION,userLogin,add_location
+from signIn import readUserConfig,writeUserConfig,getAppPHPSESSION,getCookie,userLogin,add_location
 from Location import Location
 
 if __name__ == "__main__":
@@ -13,7 +13,7 @@ if __name__ == "__main__":
     ]
 
     # 获取PHPSESSID
-    if not  userConfig['app']['PHPSESSID']:
+    if not userConfig['app']['PHPSESSID']:
         print("___获取PHPSESSID___\r\n")
         PHPSESSID_RESPONSE_HEADERS = getAppPHPSESSION(userConfig['url']['base'])
         PHPSESSID_COOKIE = PHPSESSID_RESPONSE_HEADERS['Set-Cookie'].split(';')
@@ -32,6 +32,16 @@ if __name__ == "__main__":
         if(LOGIN_RESPONE['code'] == 200):
             userConfig['user']['token'] = LOGIN_RESPONE['data']['token']
         userConfig['app']['Cookie'] = userConfig['app']['PHPSESSID'] + ';' + yzoa_mo_adminid
+    
+    # 获取cookie
+    COOKIE_RESPONSE_HEADER = getCookie(userConfig['app']['Cookie'],userConfig['user']['token'])
+    # print('上次',userConfig['app']['Cookie'])
+    if 'PHPSESSID' in  COOKIE_RESPONSE_HEADER['Set-Cookie']:
+        userConfig['app']['PHPSESSID'] = COOKIE_RESPONSE_HEADER['Set-Cookie'].split(';')[0]
+        userConfig['app']['Cookie'] = userConfig['app']['PHPSESSID'] + ';' + COOKIE_RESPONSE_HEADER['Set-Cookie'].split(';')[1].split(',')[1].strip()
+    else:
+        userConfig['app']['Cookie'] = userConfig['app']['PHPSESSID'] + ';' + COOKIE_RESPONSE_HEADER['Set-Cookie'].split(';')[0]
+    # print('当前',userConfig['app']['Cookie'])
 
     # 打卡
     add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[3])
@@ -41,7 +51,7 @@ if __name__ == "__main__":
     else:
         print(f"打卡失败，原因：{add_location_response['msg']}")
     
-    # 保存内容
+    # # 保存内容
     writeUserConfig('userConfig.json',userConfig)
     
 # python3 ./autoSignIn.py --username chaizhiyang --address 4
