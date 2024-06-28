@@ -1,7 +1,15 @@
 from signIn import readUserConfig,writeUserConfig,getAppPHPSESSION,getCookie,userLogin,add_location
 from Location import Location
+from config import get_config,send_message
 
-if __name__ == "__main__":
+
+# 获取打卡开关、地点配置
+config = get_config()
+
+if __name__ == "__main__" and config['open']:
+
+    # 定义打卡地点
+    daka_address = int(config['address']) or 3
     userConfig = readUserConfig('userConfig.json')
 
     # 打卡地点信息列表
@@ -44,10 +52,11 @@ if __name__ == "__main__":
     # print('当前',userConfig['app']['Cookie'])
 
     # 打卡
-    add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[3])
+    add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[daka_address])
 
     if(add_location_response['success']):
-        print(f"{userConfig['user']['username']} 于 {add_location_response['data']['now']} 在 {locations[3].name}  执行成功！😂")
+        print(f"{userConfig['user']['username']} 于 {add_location_response['data']['now']} 在 {locations[daka_address].name}  执行成功！😂")
+        send_message(f"{userConfig['user']['username']} 在 {locations[daka_address].name}  执行成功！😂")
     else:
         print(f"打卡失败，原因：{add_location_response['msg']}")
     
