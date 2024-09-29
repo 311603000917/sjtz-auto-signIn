@@ -60,6 +60,8 @@ if __name__ == "__main__" and config['open']:
 
     # 打卡
     current_time = datetime.now()
+    formatted_time = current_time.strftime("%Y-%m-%d")
+    
     add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[daka_address])
 
     if(add_location_response['success']):
