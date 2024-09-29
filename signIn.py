@@ -35,6 +35,7 @@ def userLogin(url,PHPSESSID,username, password):
         'Cookie':PHPSESSID,
         'Content-Type': 'application/x-www-form-urlencoded'
     }
+    # 2024年9月29日注释
     #  payload = {
     #     "cfrom": "nppandroid",
     #     "device": "f6139b7dee",
@@ -79,7 +80,9 @@ def getCookie(cookie,token):
 
 # 打卡
 def add_location(url,Cookie,token, location):
-    url = f"{url}?m=weixin&a=addlocation&addminid=102&device=1693480732947&cfrom=mweb&token={token}"
+    # 2024年9月29日注释
+    # url = f"{url}?m=weixin&a=addlocation&addminid=102&device=1693480732947&cfrom=mweb&token={token}"
+    url = f"{url}?m=weixin&a=addlocation&addminid=102&device=860166074509785&cfrom=mweb&token={token}"
     payload = f'fileid=&ispz=&label={location.jmname}&location_x={location.latitude}&location_y={location.longitude}&precision=200&scale=12&sm=&type=1'
     # payload=f'fileid=&ispz=&label=5aaC5a625ZWG5peF6YWS5bqXKOmpu!mprOW6l!mrmOmTgeilv!ermeW6lyko5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy65reu5rKz5aSn6YGT5LiO6YeR6aG25bGx6Lev5Lqk5Y!J5Y!j5ZCM5L!h57yk57q35LmL56qX5YyX5Yy6MeWPt!alvCjlhpzllYbpk7booYzlkI7mlrkpKSjnsr7noa4yMDDnsbMp&location_x={location.latitude}&location_y={location.longitude}&precision=200&scale=12&sm=&type=1'
 
