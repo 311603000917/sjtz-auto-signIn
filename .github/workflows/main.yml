@@ -5,10 +5,15 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "00 23 * * *"
-    - cron: "10 4 * * *"
-    - cron: "55 5 * * *"
-    - cron: "40 10 * * *"
+  # 2024年9月29日注释
+    # - cron: "00 23 * * *"
+    # - cron: "10 4 * * *"
+    # - cron: "55 5 * * *"
+    # - cron: "40 10 * * *"
+    - cron: "00 23 * * MON-FRI"
+    - cron: "10 4 * * MON-FRI"
+    - cron: "55 5 * * MON-FRI"
+    - cron: "40 10 * * MON-FRI"
 jobs:
   build:
     runs-on: ubuntu-latest
