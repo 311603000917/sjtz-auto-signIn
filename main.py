@@ -1,7 +1,7 @@
 from signIn import readUserConfig,writeUserConfig,getAppPHPSESSION,getCookie,userLogin,add_location
 from Location import Location
 from config import get_config,send_message
-
+import os
 
 # 获取打卡开关、地点配置
 config = get_config()
@@ -30,6 +30,12 @@ if __name__ == "__main__" and config['open']:
             if "PHPSESSID" in part:
                 userConfig['app']['PHPSESSID'] = part.strip()
                 break
+
+    # 获取用户名 密码
+    if not userConfig['user']['username']:
+        print("___获取用户名及密码___\r\n")
+        userConfig['user']['username'] = os.environ["USERNAME"]
+        userConfig['user']['password'] = os.environ["PASSWORD"]
     
     # 用户登录
     if not userConfig['user']['token']:
