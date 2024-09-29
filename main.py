@@ -9,9 +9,8 @@ config = get_config()
 if __name__ == "__main__" and config['open']:
 
     # 定义打卡地点
-    daka_address = config['address']
-    
-    userConfig = readUserConfig('userConfig.json')
+    holiday = config['address']
+    userConfig = readUserConfig('hoolday.json')
 
     # 打卡地点信息列表
     locations = [
