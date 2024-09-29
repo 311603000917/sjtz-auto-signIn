@@ -35,9 +35,21 @@ def userLogin(url,PHPSESSID,username, password):
         'Cookie':PHPSESSID,
         'Content-Type': 'application/x-www-form-urlencoded'
     }
+    #  payload = {
+    #     "cfrom": "nppandroid",
+    #     "device": "f6139b7dee",
+    #     "ltype": 0,
+    #     "pass": base64.b64encode(password.encode("utf-8")).decode("utf-8"),
+    #     "token": "",
+    #     "user": base64.b64encode(username.encode("utf-8")).decode("utf-8"),
+    #     "web": "v1913avivo",
+    #     "yanzm": ""
+    # }
+
+    
     payload = {
-        "cfrom": "nppandroid",
-        "device": "f6139b7dee",
+        "cfrom": "豫资OA",
+        "device": "860166074509785",
         "ltype": 0,
         "pass": base64.b64encode(password.encode("utf-8")).decode("utf-8"),
         "token": "",
