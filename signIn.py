@@ -54,7 +54,7 @@ def userLogin(url,PHPSESSID,username, password):
         "pass": base64.b64encode(password.encode("utf-8")).decode("utf-8"),
         "token": "",
         "user": base64.b64encode(username.encode("utf-8")).decode("utf-8"),
-        "web": "v1913avivo",
+        "web": "nbq",
         "yanzm": ""
     }
     try:
