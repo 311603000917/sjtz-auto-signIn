@@ -60,10 +60,16 @@ if __name__ == "__main__" and config['open']:
     # 打卡
     current_time = datetime.now()
     formatted_time = current_time.strftime("%Y-%m-%d")
-    with open('userConfig.json', 'r') as file:
-        userConfigData = json.load(file)
+    with open('hoolday.json', 'r') as file:
+        holidays = json.load(file)
+    holiday=holidays['hoolday']
+    arr=holiday.split(",")
+    for i in range(len(arr)):
+        if not formatted_time==arr[i]:
+            add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[daka_address])
+    	    
         
-    add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[daka_address])
+    
 
     if(add_location_response['success']):
         print(f"{userConfig['user']['username']} 于 {add_location_response['data']['now']} 在 {locations[daka_address].name}  执行成功！😂")
