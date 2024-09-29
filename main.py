@@ -34,8 +34,8 @@ if __name__ == "__main__" and config['open']:
     # 获取用户名 密码
     if not userConfig['user']['username']:
         print("___获取用户名及密码___\r\n")
-        userConfig['user']['username'] = os.environ["USERNAME"]
-        userConfig['user']['password'] = os.environ["PASSWORD"]
+        userConfig['user']['username'] = os.getenv["USERNAME"]
+        userConfig['user']['password'] = os.getenv["PASSWORD"]
     
     # 用户登录
     if not userConfig['user']['token']:
