@@ -59,6 +59,7 @@ if __name__ == "__main__" and config['open']:
     # print('当前',userConfig['app']['Cookie'])
 
     # 打卡
+    current_time = datetime.now()
     add_location_response = add_location(userConfig['url']['base'],userConfig['app']['Cookie'],userConfig['user']['token'],locations[daka_address])
 
     if(add_location_response['success']):
