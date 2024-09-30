@@ -11,7 +11,7 @@ if __name__ == "__main__" and config['open']:
     # 定义打卡地点
     # holiday = config['address']
     # userConfig = readUserConfig('hoolday.json')
-
+    userConfig = readUserConfig('userConfig.json')
     # 打卡地点信息列表
     locations = [
         Location("IDC", 32.999749, 113.967228,"5rKz5Y2X55yB6am76ams5bqX5biC6am.5Z!O5Yy66am.5Z!O5Yy65YiY6ZiB6KGX6YGT6auY5qW8"),
