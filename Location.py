@@ -14,7 +14,7 @@ class Location:
         parser = argparse.ArgumentParser(description='一个简单的命令行参数示例')
 
         # 添加命令行参数
-        parser.add_argument('--username', default='', help='指定用户名')
+        parser.add_argument('--username', default='liushuai', help='指定用户名')
         parser.add_argument('--password', default='sj@1396', help='指定密码，默认为 sj@1396')
         parser.add_argument('--address', default='1', help='指定打卡地址，默认值为IDC')
 
