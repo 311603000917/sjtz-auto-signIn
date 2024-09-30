@@ -10,10 +10,10 @@ on:
     # - cron: "10 4 * * *"
     # - cron: "55 5 * * *"
     # - cron: "40 10 * * *"
-    - cron: "00 23 * * MON-FRI"
-    - cron: "10 4 * * MON-FRI"
-    - cron: "55 5 * * MON-FRI"
-    - cron: "40 10 * * MON-FRI"
+    - cron: "00 23 * * *"
+    - cron: "10 4 * * *"
+    - cron: "55 5 * * *"
+    - cron: "40 10 * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
